@@ -3,25 +3,47 @@ import { AboutSection } from "./components/AboutSection";
 import { EducationSection } from "./components/EducationSection";
 import { ExperienceSection } from "./components/ExperienceSection";
 import { SkillsSection } from "./components/SkillsSection";
+import { useContext } from "react";
+import { StoreCtx } from "./context/store";
+import { CreateResumeActionBtn } from "./components/CreateResumeActionBtn";
 
 function App() {
+  const store = useContext(StoreCtx);
+
   return (
     <main>
       <NavBar />
 
       <div className="container-fluid p-0">
-        <AboutSection />
-        <hr className="m-0" />
+        {store.resumeData.about && (
+          <>
+            <AboutSection />
+            <hr className="m-0" />
+          </>
+        )}
 
-        <ExperienceSection />
-        <hr className="m-0" />
+        {(store.resumeData.education.length || null) && (
+          <>
+            <ExperienceSection />
+            <hr className="m-0" />
+          </>
+        )}
 
-        <EducationSection />
-        <hr className="m-0" />
+        {(store.resumeData.experience.length || null) && (
+          <>
+            <EducationSection />
+            <hr className="m-0" />
+          </>
+        )}
 
-        <SkillsSection />
-        <hr className="m-0" />
+        {(store.resumeData.skills.length || null) && (
+          <>
+            <SkillsSection />
+          </>
+        )}
       </div>
+
+      <CreateResumeActionBtn />
     </main>
   );
 }

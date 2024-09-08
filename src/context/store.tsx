@@ -1,4 +1,5 @@
 import { Dispatch, SetStateAction, createContext, useState } from "react";
+import avatar from "../assets/avatar.jpg";
 
 const defaultResumeData = {
   about: {
@@ -12,6 +13,7 @@ const defaultResumeData = {
     email: "mustafa.batti128@gmail.com",
     intro:
       "I am experienced in leveraging agile frameworks to provide a robust synopsis for high level overviews. Iterative approaches to corporate strategy foster collaborative thinking to further the overall value proposition.",
+    avatar: avatar,
     gitHubLink: "https://github.com/mustafa128110",
     linkedInLink: "https://www.linkedin.com/in/mustafa-battiwala-9bba87223",
     XLink: "https://x.com/Mustafa_Batti",

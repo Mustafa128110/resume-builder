@@ -156,3 +156,29 @@ section.resume-section .resume-section-content {
 .color-bg {
   background-color: $pink-700;
 }
+
+.input-label-require-mark {
+  color: red;
+}
+
+.fixed-bottom-right {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 1000;
+  border: none;
+}
+
+.fixed-bottom-right:hover {
+  background-color: $pink-400 !important;
+}
+
+.btn-round {
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+}

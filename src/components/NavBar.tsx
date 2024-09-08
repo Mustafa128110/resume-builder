@@ -1,8 +1,11 @@
-import { useEffect, useState } from "react";
-import avatar from "../assets/avatar.jpg";
+import { useContext, useEffect, useState } from "react";
+import { StoreCtx } from "../context/store";
 
 export const NavBar = () => {
   const [navBarToggleStatus, setNavBarToggleStatus] = useState(false);
+  const {
+    resumeData: { about, skills, education, experience },
+  } = useContext(StoreCtx);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -36,11 +39,13 @@ export const NavBar = () => {
       id="sideNav"
     >
       <a className="navbar-brand js-scroll-trigger" href="#page-top">
-        <span className="d-block d-lg-none">Clarence Taylor</span>
+        <span className="d-block d-lg-none">
+          {about.firstName} {about.lastName}
+        </span>
         <span className="d-none d-lg-block">
           <img
             className="img-fluid img-profile rounded-circle mx-auto mb-2"
-            src={avatar}
+            src={about.avatar}
             alt="avatar image"
           />
         </span>
@@ -71,21 +76,27 @@ export const NavBar = () => {
               About
             </a>
           </li>
-          <li className="nav-item">
-            <a className="nav-link" href="#experience">
-              Experience
-            </a>
-          </li>
-          <li className="nav-item">
-            <a className="nav-link" href="#education">
-              Education
-            </a>
-          </li>
-          <li className="nav-item">
-            <a className="nav-link" href="#skills">
-              Skills
-            </a>
-          </li>
+          {(experience.length || null) && (
+            <li className="nav-item">
+              <a className="nav-link" href="#experience">
+                Experience
+              </a>
+            </li>
+          )}
+          {(education.length || null) && (
+            <li className="nav-item">
+              <a className="nav-link" href="#education">
+                Education
+              </a>
+            </li>
+          )}
+          {(skills.length || null) && (
+            <li className="nav-item">
+              <a className="nav-link" href="#skills">
+                Skills
+              </a>
+            </li>
+          )}
         </ul>
       </div>
     </nav>
