@@ -85,8 +85,7 @@ export const CreateResumeForm = ({
   closeModal,
   isEdit = false,
 }: CreateResumeFormProps) => {
-  const { setResumeData, setUserId, userId } = useContext(StoreCtx);
-  const { resumeData } = useContext(StoreCtx);
+  const { setResumeData, setUserId, userId, resumeData } = useContext(StoreCtx);
 
   const [formData, setFormData] = useState<{
     about: About;
@@ -96,6 +95,8 @@ export const CreateResumeForm = ({
   }>(isEdit ? resumeData : defaultEmptyValue);
 
   const [skill, setSkill] = useState("");
+
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleAboutChange = (
     e:
@@ -204,35 +205,43 @@ export const CreateResumeForm = ({
   };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+    try {
+      e.preventDefault();
 
-    let formDataToSubmit = { ...formData };
+      setIsLoading(true);
 
-    if (skill) {
-      formDataToSubmit = {
-        ...formDataToSubmit,
-        skills: [...formDataToSubmit.skills, skill],
-      };
+      let formDataToSubmit = { ...formData };
+
+      if (skill) {
+        formDataToSubmit = {
+          ...formDataToSubmit,
+          skills: [...formDataToSubmit.skills, skill],
+        };
+      }
+
+      let id = "";
+
+      if (userId) {
+        id = userId;
+      } else {
+        id = `${formData.about.firstName}-${
+          formData.about.lastName
+        }-${randomUUID()}`;
+      }
+
+      await axios.put(
+        `https://resume-builder-f9c12-default-rtdb.firebaseio.com/users/${id}.json`,
+        formDataToSubmit
+      );
+
+      setIsLoading(false);
+      setResumeData(formData);
+      setUserId(id);
+      closeModal(id);
+    } catch (error) {
+      setIsLoading(false);
+      closeModal("");
     }
-
-    let id = "";
-
-    if (userId) {
-      id = userId;
-    } else {
-      id = `${formData.about.firstName}-${
-        formData.about.lastName
-      }-${randomUUID()}`;
-    }
-
-    await axios.put(
-      `https://resume-builder-f9c12-default-rtdb.firebaseio.com/users/${id}.json`,
-      formDataToSubmit
-    );
-
-    setResumeData(formData);
-    setUserId(id);
-    closeModal(id);
   };
 
   return (
@@ -576,7 +585,7 @@ export const CreateResumeForm = ({
         </button>
       </div>
       <button style={{ color: "white" }} type="submit" className="btn color-bg">
-        Save
+        {isLoading ? "Loading..." : "Save"}
       </button>
     </form>
   );
