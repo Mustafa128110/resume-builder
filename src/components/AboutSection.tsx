@@ -29,7 +29,7 @@ export const AboutSection = () => {
             className="social-icon"
             href={resumeData.about.linkedInLink}
           >
-            <i className="fab fa-linkedin-in"></i>
+            <i className="fab fa-linkedin-in" />
           </a>
         )}
 
@@ -39,7 +39,7 @@ export const AboutSection = () => {
             target="_blank"
             href={resumeData.about.gitHubLink}
           >
-            <i className="fab fa-github"></i>
+            <i className="fab fa-github" />
           </a>
         )}
 
@@ -49,7 +49,7 @@ export const AboutSection = () => {
             className="social-icon"
             href={resumeData.about.XLink}
           >
-            <i className="fab fa-twitter"></i>
+            <i className="fab fa-twitter" />
           </a>
         )}
       </div>

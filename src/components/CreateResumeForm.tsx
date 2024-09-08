@@ -235,7 +235,7 @@ export const CreateResumeForm = ({
       );
 
       setIsLoading(false);
-      setResumeData(formData);
+      setResumeData(formDataToSubmit);
       setUserId(id);
       closeModal(id);
     } catch (error) {

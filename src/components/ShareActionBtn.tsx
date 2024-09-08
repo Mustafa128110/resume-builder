@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import { StoreCtx } from "../context/store";
 
-export const ShareButton = () => {
+export const ShareActionBtn = () => {
   const store = useContext(StoreCtx);
 
   const share = async () => {

@@ -179,6 +179,12 @@ section.resume-section .resume-section-content {
   border: none;
 }
 
+.download {
+  bottom: 20px;
+  right: 200px;
+  border: none;
+}
+
 @media (max-width: 768px) {
   .edit {
     bottom: 80px;
@@ -206,13 +212,31 @@ section.resume-section .resume-section-content {
 @media (max-width: 992px) {
   .share {
     bottom: 140px;
+    right: 20px;
+    border: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .download {
+    bottom: 200px;
+    right: 20px;
+    border: none;
+  }
+}
+
+@media (max-width: 992px) {
+  .download {
+    bottom: 200px;
     right: 20px;
     border: none;
   }
 }
 
 .fixed-bottom-right,
-.add {
+.add,
+.edit,
+.share {
   position: fixed;
   z-index: 1000;
 }

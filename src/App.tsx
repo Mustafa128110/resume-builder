@@ -7,16 +7,21 @@ import { useContext } from "react";
 import { StoreCtx } from "./context/store";
 import { CreateResumeActionBtn } from "./components/CreateResumeActionBtn";
 import { EditResumeActionBtn } from "./components/EditResumeActionBtn";
-import { ShareButton } from "./components/ShareButton";
+import { ShareActionBtn } from "./components/ShareActionBtn";
+import { DownloadActionBtn } from "./components/DOwnloadActionBtn";
+import { usePDF } from "react-to-pdf";
 
 function App() {
   const store = useContext(StoreCtx);
+  const { toPDF, targetRef } = usePDF({
+    filename: `${store.resumeData.about.firstName}-resume.pdf`,
+  });
 
   return (
     <main>
       <NavBar />
 
-      <div className="container-fluid p-0">
+      <div ref={targetRef} className="container-fluid p-0">
         {store.resumeData.about && (
           <>
             <AboutSection />
@@ -45,7 +50,8 @@ function App() {
         )}
       </div>
 
-      <ShareButton />
+      <DownloadActionBtn toPDF={toPDF} />
+      <ShareActionBtn />
       <EditResumeActionBtn />
       <CreateResumeActionBtn />
     </main>
