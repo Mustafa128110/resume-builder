@@ -1,5 +1,50 @@
-import { Dispatch, SetStateAction, createContext, useState } from "react";
+import {
+  Dispatch,
+  SetStateAction,
+  createContext,
+  useEffect,
+  useState,
+} from "react";
 import avatar from "../assets/avatar.jpg";
+import axios from "axios";
+
+const defaultEmptyValue = {
+  about: {
+    firstName: "",
+    lastName: "",
+    streetName: "",
+    city: "",
+    country: "",
+    postalCode: "",
+    phoneNumber: "",
+    email: "",
+    intro: "",
+    avatar: "",
+    gitHubLink: "",
+    linkedInLink: "",
+    XLink: "",
+  },
+  experience: [
+    {
+      jobTitle: "",
+      companyName: "",
+      description: "",
+      fromDate: "",
+      toDate: "",
+    },
+  ],
+  education: [
+    {
+      school: "",
+      degree: "",
+      fieldOfStudy: "",
+      grade: "",
+      fromDate: "",
+      toDate: "",
+    },
+  ],
+  skills: [] as string[],
+};
 
 const defaultResumeData = {
   about: {
@@ -81,18 +126,46 @@ const defaultResumeData = {
 const ctx: {
   resumeData: typeof defaultResumeData;
   setResumeData: Dispatch<SetStateAction<typeof defaultResumeData>>;
+  userId: string;
+  setUserId: Dispatch<SetStateAction<string>>;
 } = {
-  resumeData: defaultResumeData,
+  resumeData: defaultEmptyValue,
   setResumeData: () => {},
+  userId: "",
+  setUserId: () => {},
 };
 
 export const StoreCtx = createContext(ctx);
 
 export const Store = ({ children }: any) => {
-  const [resumeData, setResumeData] = useState(defaultResumeData);
+  const [resumeData, setResumeData] = useState(defaultEmptyValue);
+  const [userId, setUserId] = useState("");
+
+  useEffect(() => {
+    const queryString = window.location.search;
+    const urlParams = new URLSearchParams(queryString);
+    const username = urlParams.get("username");
+
+    if (username) {
+      setUserId(username);
+    } else {
+      setResumeData(defaultResumeData);
+    }
+  }, []);
+
+  useEffect(() => {
+    (async () => {
+      if (userId) {
+        const { data } = await axios.get(
+          `https://resume-builder-f9c12-default-rtdb.firebaseio.com/users/${userId}.json`
+        );
+        setResumeData(data);
+      }
+    })();
+  }, [userId]);
 
   return (
-    <StoreCtx.Provider value={{ resumeData, setResumeData }}>
+    <StoreCtx.Provider value={{ userId, setUserId, resumeData, setResumeData }}>
       {children}
     </StoreCtx.Provider>
   );

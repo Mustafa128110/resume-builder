@@ -1,5 +1,9 @@
 import { useContext, useState } from "react";
+import axios from "axios";
+import Uid from "short-unique-id";
 import { StoreCtx } from "../context/store";
+
+const { randomUUID } = new Uid({ length: 6 });
 
 interface About {
   firstName: string;
@@ -81,7 +85,7 @@ export const CreateResumeForm = ({
   closeModal,
   isEdit = false,
 }: CreateResumeFormProps) => {
-  const { setResumeData } = useContext(StoreCtx);
+  const { setResumeData, setUserId, userId } = useContext(StoreCtx);
   const { resumeData } = useContext(StoreCtx);
 
   const [formData, setFormData] = useState<{
@@ -199,11 +203,32 @@ export const CreateResumeForm = ({
     setFormData({ ...formData, skills: updatedSkills });
   };
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log(formData);
+
+    let id = "";
+
+    if (userId) {
+      id = userId;
+    } else {
+      id = `${formData.about.firstName}-${
+        formData.about.lastName
+      }-${randomUUID()}`;
+    }
+
     setResumeData(formData);
+    setUserId(id);
+
+    await axios.put(
+      `https://resume-builder-f9c12-default-rtdb.firebaseio.com/users/${id}.json`,
+      formData
+    );
+
     closeModal();
+
+    const url = new URL(window.location.href);
+    url.searchParams.set("username", id);
+    window.history.pushState({}, "", url);
   };
 
   return (

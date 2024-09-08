@@ -7,6 +7,7 @@ import { useContext } from "react";
 import { StoreCtx } from "./context/store";
 import { CreateResumeActionBtn } from "./components/CreateResumeActionBtn";
 import { EditResumeActionBtn } from "./components/EditResumeActionBtn";
+import { ShareButton } from "./components/ShareButton";
 
 function App() {
   const store = useContext(StoreCtx);
@@ -44,6 +45,7 @@ function App() {
         )}
       </div>
 
+      {store.userId && <ShareButton />}
       <EditResumeActionBtn />
       <CreateResumeActionBtn />
     </main>

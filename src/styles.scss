@@ -173,6 +173,12 @@ section.resume-section .resume-section-content {
   border: none;
 }
 
+.share {
+  bottom: 20px;
+  right: 140px;
+  border: none;
+}
+
 @media (max-width: 768px) {
   .edit {
     bottom: 80px;
@@ -184,6 +190,22 @@ section.resume-section .resume-section-content {
 @media (max-width: 992px) {
   .edit {
     bottom: 80px;
+    right: 20px;
+    border: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .share {
+    bottom: 140px;
+    right: 20px;
+    border: none;
+  }
+}
+
+@media (max-width: 992px) {
+  .share {
+    bottom: 140px;
     right: 20px;
     border: none;
   }
