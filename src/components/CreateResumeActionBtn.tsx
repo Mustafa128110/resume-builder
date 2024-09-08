@@ -1,11 +1,10 @@
-import { useContext, useState } from "react";
+import { useState } from "react";
 import { createPortal } from "react-dom";
 import { Modal } from "./Modal";
 import { CreateResumeForm } from "./CreateResumeForm";
-import { StoreCtx } from "../context/store";
+import { setUrlUsernameParam } from "../utils";
 
 export const CreateResumeActionBtn = () => {
-  const { userId } = useContext(StoreCtx);
   const [showCreateResumeForm, setShowCreateResumeForm] = useState(false);
 
   const onCreateYourOwnResume = () => {
@@ -29,11 +28,9 @@ export const CreateResumeActionBtn = () => {
             title="Create Resume"
           >
             <CreateResumeForm
-              closeModal={() => {
+              closeModal={(userId) => {
                 setShowCreateResumeForm(false);
-                const url = new URL(window.location.href);
-                url.searchParams.set("username", userId);
-                window.history.pushState({}, "", url);
+                setUrlUsernameParam(userId);
               }}
             />
           </Modal>,

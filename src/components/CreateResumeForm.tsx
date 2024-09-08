@@ -39,7 +39,7 @@ interface Education {
 }
 
 interface CreateResumeFormProps {
-  closeModal: () => void;
+  closeModal: (userId: string) => void;
   isEdit?: boolean;
 }
 
@@ -206,6 +206,15 @@ export const CreateResumeForm = ({
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
+    let formDataToSubmit = { ...formData };
+
+    if (skill) {
+      formDataToSubmit = {
+        ...formDataToSubmit,
+        skills: [...formDataToSubmit.skills, skill],
+      };
+    }
+
     let id = "";
 
     if (userId) {
@@ -218,13 +227,12 @@ export const CreateResumeForm = ({
 
     await axios.put(
       `https://resume-builder-f9c12-default-rtdb.firebaseio.com/users/${id}.json`,
-      formData
+      formDataToSubmit
     );
 
     setResumeData(formData);
     setUserId(id);
-
-    closeModal();
+    closeModal(id);
   };
 
   return (

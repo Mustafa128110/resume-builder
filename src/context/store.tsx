@@ -7,6 +7,7 @@ import {
 } from "react";
 import avatar from "../assets/avatar.jpg";
 import axios from "axios";
+import { setUrlUsernameParam } from "../utils";
 
 const defaultEmptyValue = {
   about: {
@@ -150,6 +151,7 @@ export const Store = ({ children }: any) => {
       setUserId(username);
     } else {
       setResumeData(defaultResumeData);
+      setUrlUsernameParam("");
     }
   }, []);
 
@@ -162,7 +164,9 @@ export const Store = ({ children }: any) => {
         if (data) {
           setResumeData(data);
         } else {
+          alert("User not found!");
           setResumeData(defaultEmptyValue);
+          setUrlUsernameParam("");
         }
       }
     })();
