@@ -8,7 +8,7 @@ import { StoreCtx } from "./context/store";
 import { CreateResumeActionBtn } from "./components/CreateResumeActionBtn";
 import { EditResumeActionBtn } from "./components/EditResumeActionBtn";
 import { ShareActionBtn } from "./components/ShareActionBtn";
-import { DownloadActionBtn } from "./components/DOwnloadActionBtn";
+import { DownloadActionBtn } from "./components/DownloadActionBtn";
 import { usePDF } from "react-to-pdf";
 
 function App() {
