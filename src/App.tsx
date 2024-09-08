@@ -45,7 +45,7 @@ function App() {
         )}
       </div>
 
-      {store.userId && <ShareButton />}
+      <ShareButton />
       <EditResumeActionBtn />
       <CreateResumeActionBtn />
     </main>

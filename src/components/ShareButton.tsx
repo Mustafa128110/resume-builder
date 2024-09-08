@@ -5,6 +5,11 @@ export const ShareButton = () => {
   const store = useContext(StoreCtx);
 
   const share = async () => {
+    if (!store.userId) {
+      alert("Please create your resume first!");
+      return;
+    }
+
     if (navigator.share) {
       try {
         await navigator.share({

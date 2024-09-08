@@ -572,7 +572,7 @@ export const CreateResumeForm = ({
         </button>
       </div>
       <button style={{ color: "white" }} type="submit" className="btn color-bg">
-        Submit
+        Save
       </button>
     </form>
   );
