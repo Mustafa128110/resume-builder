@@ -159,7 +159,11 @@ export const Store = ({ children }: any) => {
         const { data } = await axios.get(
           `https://resume-builder-f9c12-default-rtdb.firebaseio.com/users/${userId}.json`
         );
-        setResumeData(data);
+        if (data) {
+          setResumeData(data);
+        } else {
+          setResumeData(defaultEmptyValue);
+        }
       }
     })();
   }, [userId]);

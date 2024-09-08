@@ -216,19 +216,15 @@ export const CreateResumeForm = ({
       }-${randomUUID()}`;
     }
 
-    setResumeData(formData);
-    setUserId(id);
-
     await axios.put(
       `https://resume-builder-f9c12-default-rtdb.firebaseio.com/users/${id}.json`,
       formData
     );
 
-    closeModal();
+    setResumeData(formData);
+    setUserId(id);
 
-    const url = new URL(window.location.href);
-    url.searchParams.set("username", id);
-    window.history.pushState({}, "", url);
+    closeModal();
   };
 
   return (

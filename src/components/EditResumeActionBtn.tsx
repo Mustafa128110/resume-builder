@@ -1,10 +1,12 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { Modal } from "./Modal";
 import { CreateResumeForm } from "./CreateResumeForm";
 import { createPortal } from "react-dom";
+import { StoreCtx } from "../context/store";
 
 export const EditResumeActionBtn = () => {
   const [showEditResumeForm, setEditCreateResumeForm] = useState(false);
+  const { userId } = useContext(StoreCtx);
 
   const onEditYourOwnResume = () => {
     setEditCreateResumeForm(true);
@@ -28,7 +30,12 @@ export const EditResumeActionBtn = () => {
           >
             <CreateResumeForm
               isEdit={true}
-              closeModal={() => setEditCreateResumeForm(false)}
+              closeModal={() => {
+                setEditCreateResumeForm(false);
+                const url = new URL(window.location.href);
+                url.searchParams.set("username", userId);
+                window.history.pushState({}, "", url);
+              }}
             />
           </Modal>,
           document.getElementById("modal-root")!
