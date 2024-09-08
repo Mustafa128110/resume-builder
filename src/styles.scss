@@ -161,15 +161,41 @@ section.resume-section .resume-section-content {
   color: red;
 }
 
-.fixed-bottom-right {
-  position: fixed;
+.add {
   bottom: 20px;
   right: 20px;
-  z-index: 1000;
   border: none;
 }
 
-.fixed-bottom-right:hover {
+.edit {
+  bottom: 20px;
+  right: 80px;
+  border: none;
+}
+
+@media (max-width: 768px) {
+  .edit {
+    bottom: 80px;
+    right: 20px;
+    border: none;
+  }
+}
+
+@media (max-width: 992px) {
+  .edit {
+    bottom: 80px;
+    right: 20px;
+    border: none;
+  }
+}
+
+.fixed-bottom-right,
+.add {
+  position: fixed;
+  z-index: 1000;
+}
+
+button:hover {
   background-color: $pink-400 !important;
 }
 

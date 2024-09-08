@@ -15,7 +15,7 @@ export const CreateResumeActionBtn = () => {
       <button
         style={{ color: "white", fontSize: "2rem", fontWeight: "bold" }}
         onClick={onCreateYourOwnResume}
-        className="btn btn-primary color-bg btn-round fixed-bottom-right"
+        className="btn btn-primary color-bg btn-round fixed-bottom-right add"
       >
         <i className="bi bi-plus" />
       </button>

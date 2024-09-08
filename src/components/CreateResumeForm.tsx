@@ -36,53 +36,60 @@ interface Education {
 
 interface CreateResumeFormProps {
   closeModal: () => void;
+  isEdit?: boolean;
 }
 
-export const CreateResumeForm = ({ closeModal }: CreateResumeFormProps) => {
+const defaultEmptyValue = {
+  about: {
+    firstName: "",
+    lastName: "",
+    streetName: "",
+    city: "",
+    country: "",
+    postalCode: "",
+    phoneNumber: "",
+    email: "",
+    intro: "",
+    avatar: "",
+    gitHubLink: "",
+    linkedInLink: "",
+    XLink: "",
+  },
+  experience: [
+    {
+      jobTitle: "",
+      companyName: "",
+      description: "",
+      fromDate: "",
+      toDate: "",
+    },
+  ],
+  education: [
+    {
+      school: "",
+      degree: "",
+      fieldOfStudy: "",
+      grade: "",
+      fromDate: "",
+      toDate: "",
+    },
+  ],
+  skills: [],
+};
+
+export const CreateResumeForm = ({
+  closeModal,
+  isEdit = false,
+}: CreateResumeFormProps) => {
   const { setResumeData } = useContext(StoreCtx);
+  const { resumeData } = useContext(StoreCtx);
 
   const [formData, setFormData] = useState<{
     about: About;
     experience: Experience[];
     education: Education[];
     skills: string[];
-  }>({
-    about: {
-      firstName: "",
-      lastName: "",
-      streetName: "",
-      city: "",
-      country: "",
-      postalCode: "",
-      phoneNumber: "",
-      email: "",
-      intro: "",
-      avatar: "",
-      gitHubLink: "",
-      linkedInLink: "",
-      XLink: "",
-    },
-    experience: [
-      {
-        jobTitle: "",
-        companyName: "",
-        description: "",
-        fromDate: "",
-        toDate: "",
-      },
-    ],
-    education: [
-      {
-        school: "",
-        degree: "",
-        fieldOfStudy: "",
-        grade: "",
-        fromDate: "",
-        toDate: "",
-      },
-    ],
-    skills: [],
-  });
+  }>(isEdit ? resumeData : defaultEmptyValue);
 
   const [skill, setSkill] = useState("");
 
@@ -325,7 +332,7 @@ export const CreateResumeForm = ({ closeModal }: CreateResumeFormProps) => {
         </label>
         <input
           type="file"
-          required
+          required={!formData.about.avatar}
           name="avatar"
           className="form-control"
           onChange={handleAvatarChange}
@@ -458,7 +465,6 @@ export const CreateResumeForm = ({ closeModal }: CreateResumeFormProps) => {
             Field of Study <span className="input-label-require-mark">*</span>
           </label>
           <input
-            required
             type="text"
             name="fieldOfStudy"
             className="form-control"

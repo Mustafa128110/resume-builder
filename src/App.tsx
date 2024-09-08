@@ -6,6 +6,7 @@ import { SkillsSection } from "./components/SkillsSection";
 import { useContext } from "react";
 import { StoreCtx } from "./context/store";
 import { CreateResumeActionBtn } from "./components/CreateResumeActionBtn";
+import { EditResumeActionBtn } from "./components/EditResumeActionBtn";
 
 function App() {
   const store = useContext(StoreCtx);
@@ -43,6 +44,7 @@ function App() {
         )}
       </div>
 
+      <EditResumeActionBtn />
       <CreateResumeActionBtn />
     </main>
   );
