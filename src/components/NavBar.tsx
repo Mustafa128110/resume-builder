@@ -42,13 +42,15 @@ export const NavBar = () => {
         <span className="d-block d-lg-none">
           {about.firstName} {about.lastName}
         </span>
-        <span className="d-none d-lg-block">
-          <img
-            className="img-fluid img-profile rounded-circle mx-auto mb-2"
-            src={about.avatar}
-            alt="avatar image"
-          />
-        </span>
+        {(about.avatar || null) && (
+          <span className="d-none d-lg-block">
+            <img
+              className="img-fluid img-profile rounded-circle mx-auto mb-2"
+              src={about.avatar}
+              alt="avatar image"
+            />
+          </span>
+        )}
       </a>
 
       <button

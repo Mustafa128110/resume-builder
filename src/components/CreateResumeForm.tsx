@@ -365,12 +365,9 @@ export const CreateResumeForm = ({
         />
       </div>
       <div className="mb-3">
-        <label className="form-label">
-          Avatar <span className="input-label-require-mark">*</span>
-        </label>
+        <label className="form-label">Avatar</label>
         <input
           type="file"
-          required={!formData.about.avatar}
           name="avatar"
           className="form-control"
           onChange={handleAvatarChange}
